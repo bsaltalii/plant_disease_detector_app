@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'features/auth/login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,11 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Supabase Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const Scaffold(
-        body: Center(
-          child: Text("Supabase connected!"),
-        ),
-      ),
+      home: const LoginScreen(),
     );
   }
 }
