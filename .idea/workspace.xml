@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d1f7675-15eb-4c25-841f-62407d9f44e4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/auroralights.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core/responsive.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/field.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/social_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/detection/disease_detect_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/plants/add_plant_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/Stats_row.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/primary_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/stat_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/auth/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/auth/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/custom_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/custom_button.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: 'Username',
                     obscure: false,
                     prefix:
-                        const Icon(Icons.lock_outline, color: Colors.white70),
+                        const Icon(Icons.supervised_user_circle_outlined, color: Colors.white70),
                   ),
                   const SizedBox(height: 24),
                   Field(
@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: 'E-mail',
                     obscure: false,
                     prefix:
-                        const Icon(Icons.lock_outline, color: Colors.white70),
+                        const Icon(Icons.alternate_email, color: Colors.white70),
                   ),
                   const SizedBox(height: 24),
                   Field(

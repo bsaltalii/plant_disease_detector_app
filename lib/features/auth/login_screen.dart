@@ -147,7 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 14),
 
-                        // Register nav (sonra bağlarız)
                         TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -164,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 16),
 
-                        // Sosyal buton placeholder (ileride ekleriz)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
