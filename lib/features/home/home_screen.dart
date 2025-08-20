@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_disease_detector_app/widgets/plant_animation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:lottie/lottie.dart';
 import '../auth/login_screen.dart';
@@ -21,17 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<Map<String, dynamic>> _loadStats() async {
     final uid = _supa.auth.currentUser!.id;
 
-    final rows = await _supa
-        .from('plants')
-        .select('id')
-        .eq('user_id', uid);
+    final rows = await _supa.from('plants').select('id').eq('user_id', uid);
 
     final total = rows.length;
 
     final today = DateTime.now();
     final due = await _supa.rpc('plants_due_today', params: {
       'uid': uid,
-      'today_date': DateTime(today.year, today.month, today.day).toIso8601String()
+      'today_date':
+          DateTime(today.year, today.month, today.day).toIso8601String()
     }).catchError((_) async {
       final rows = await _supa
           .from('plants')
@@ -39,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
           .eq('user_id', uid);
       int dueCount = 0;
       for (final r in rows) {
-        final lw = r['last_watered'] != null ? DateTime.parse(r['last_watered']) : null;
+        final lw = r['last_watered'] != null
+            ? DateTime.parse(r['last_watered'])
+            : null;
         final interval = (r['watering_interval_days'] as int?) ?? 3;
         final next = (lw ?? today.subtract(Duration(days: interval)))
             .add(Duration(days: interval));
@@ -58,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return {
       'total': total,
-      'due': (due is Map && due['count'] != null) ? due['count'] as int : (due as List).length,
+      'due': (due is Map && due['count'] != null)
+          ? due['count'] as int
+          : (due as List).length,
       'latest': latest?['name'] ?? '-',
     };
   }
@@ -70,7 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Plant Care',style: TextStyle(color: Colors.white70),),
+        title: const Text(
+          'Plant Care',
+          style: TextStyle(color: Colors.white70),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -97,28 +103,33 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(20),
             child: ListView(
               children: [
-                const Text('Dashboard',style: TextStyle(color: Colors.white70,fontSize: 32,fontWeight: FontWeight.bold),),
+                const Text(
+                  'Dashboard',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 16),
 
-                SizedBox(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Lottie.asset(
-                      'assets/sprout.json', // dosya yolunu kendine göre ayarla
-                      fit: BoxFit.fitWidth,
-                      repeat: false,   // 👈 tek sefer oyna
-                    ),
-                  ),
-                ),
+                const PlantAnimation(),
 
+                const SizedBox(height: 16),
                 StatsRow(
                   stats: [
-                    {"title": "Total Plants", "value": "12", "icon": Icons.local_florist},
+                    {
+                      "title": "Total Plants",
+                      "value": "12",
+                      "icon": Icons.local_florist
+                    },
                     {"title": "Tasks", "value": "5", "icon": Icons.task},
-                    {"title": "Detections", "value": "3", "icon": Icons.bug_report},
+                    {
+                      "title": "Detections",
+                      "value": "3",
+                      "icon": Icons.bug_report
+                    },
                   ],
                 ),
-
                 const SizedBox(height: 24),
                 PrimaryButton(
                   label: 'Bitkilerim',
@@ -133,8 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Bitki Ekle',
                   icon: Icons.add_circle,
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const AddPlantPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const AddPlantPage()));
                   },
                 ),
                 const SizedBox(height: 12),
@@ -142,8 +155,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Hastalık Tespiti (Beta)',
                   icon: Icons.camera_alt,
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const DiseaseDetectPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const DiseaseDetectPage()));
                   },
                 ),
               ],
@@ -155,11 +170,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-
-
-
 // ---- Placeholder sayfalar (sonraki adımlarda dolduracağız) ----
-
-
-
