@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plant_disease_detector_app/widgets/plant_animation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:lottie/lottie.dart';
 import '../auth/login_screen.dart';
 import '../../data/auth_repository.dart';
-import '../../widgets/Stats_row.dart';
-import '../../widgets/primary_button.dart';
-import '../plants/add_plant_page.dart';
-import '../plants/plants_page.dart';
-import '../detection/disease_detect_page.dart';
+import '../../widgets/stats_card.dart';
+import '../../widgets/action_card.dart';
+import '../../data//stats_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,156 +15,175 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _supa = Supabase.instance.client;
+  final StatsRepository _statsService = StatsRepository();
 
-  Future<Map<String, dynamic>> _loadStats() async {
+  Future<String> _loadUsername() async {
     final uid = _supa.auth.currentUser!.id;
-
-    final rows = await _supa.from('plants').select('id').eq('user_id', uid);
-
-    final total = rows.length;
-
-    final today = DateTime.now();
-    final due = await _supa.rpc('plants_due_today', params: {
-      'uid': uid,
-      'today_date':
-          DateTime(today.year, today.month, today.day).toIso8601String()
-    }).catchError((_) async {
-      final rows = await _supa
-          .from('plants')
-          .select('last_watered, watering_interval_days')
-          .eq('user_id', uid);
-      int dueCount = 0;
-      for (final r in rows) {
-        final lw = r['last_watered'] != null
-            ? DateTime.parse(r['last_watered'])
-            : null;
-        final interval = (r['watering_interval_days'] as int?) ?? 3;
-        final next = (lw ?? today.subtract(Duration(days: interval)))
-            .add(Duration(days: interval));
-        if (!next.isAfter(today)) dueCount++;
-      }
-      return {'count': dueCount};
-    });
-
-    final latest = await _supa
-        .from('plants')
-        .select('name')
-        .eq('user_id', uid)
-        .order('created_at', ascending: false)
-        .limit(1)
+    final res = await _supa
+        .from('profiles')
+        .select('username')
+        .eq('id', uid)
         .maybeSingle();
-
-    return {
-      'total': total,
-      'due': (due is Map && due['count'] != null)
-          ? due['count'] as int
-          : (due as List).length,
-      'latest': latest?['name'] ?? '-',
-    };
+    return res?['username'] ?? 'Guest';
   }
 
   @override
   Widget build(BuildContext context) {
     final repo = AuthRepository();
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Plant Care',
-          style: TextStyle(color: Colors.white70),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await repo.signOut();
-              if (context.mounted) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
-                );
+
+    return FutureBuilder<String>(
+      future: _loadUsername(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            backgroundColor: Color(0xFF0D1F12),
+            body: Center(child: CircularProgressIndicator(color: Colors.white)),
+          );
+        }
+
+        final username = snapshot.data!;
+
+        return Scaffold(
+          backgroundColor: const Color(0xFF0D1F12),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF0D1F12),
+            elevation: 0,
+            title: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Welcome, $username !',
+                style: const TextStyle(color: Colors.white70, fontSize: 18),
+              ),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.person_2_rounded,
+                    size: 28, color: Colors.white),
+                onPressed: () async {
+                  await repo.signOut();
+                  if (context.mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    );
+                  }
+                },
+              )
+            ],
+          ),
+          body: FutureBuilder<Map<String, dynamic>>(
+            future: _statsService.loadStats(),
+            builder: (context, snap) {
+              if (!snap.hasData) {
+                return const Center(
+                    child: CircularProgressIndicator(color: Colors.white));
               }
-            },
-          )
-        ],
-      ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: _loadStats(),
-        builder: (context, snap) {
-          if (!snap.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final data = snap.data!;
-          return Padding(
-            padding: const EdgeInsets.all(20),
-            child: ListView(
-              children: [
-                const Text(
-                  'Dashboard',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
+              final data = snap.data!;
 
-                const PlantAnimation(),
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Dashboard",
+                        style: TextStyle(color: Colors.white70, fontSize: 32),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: const PlantAnimation(),
+                          ),
 
-                const SizedBox(height: 16),
-                StatsRow(
-                  stats: [
-                    {
-                      "title": "Total Plants",
-                      "value": "12",
-                      "icon": Icons.local_florist
-                    },
-                    {"title": "Tasks", "value": "5", "icon": Icons.task},
-                    {
-                      "title": "Detections",
-                      "value": "3",
-                      "icon": Icons.bug_report
-                    },
+                          const SizedBox(width: 12),
+
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: StatCard(
+                                    title: "Total Plants",
+                                    value: "${data['total']}",
+                                    icon: Icons.local_florist,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: StatCard(
+                                    title: "Tasks",
+                                    value: "${data['due']}",
+                                    icon: Icons.task,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: StatCard(
+                                    title: "Latest Plant",
+                                    value: "${data['latest']}",
+                                    icon: Icons.bug_report,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: StatCard(
+                                    title: "Last Watered",
+                                    value: "${data['last_watered'] ?? '-'}",
+                                    icon: Icons.water_drop,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: StatCard(
+                                    title: "Upcoming",
+                                    value: "${data['upcoming'] ?? '-'}",
+                                    icon: Icons.schedule,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    Expanded(
+                      flex: 2,
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1.2,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          ActionCard(
+                            icon: Icons.list_alt,
+                            title: "My plants",
+                            onTap: () {},
+                          ),
+                          ActionCard(
+                            icon: Icons.add_circle,
+                            title: "Add plant",
+                            onTap: () {},
+                          ),
+                          ActionCard(
+                            icon: Icons.camera_alt,
+                            title: "Disease Detection",
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 24),
-                PrimaryButton(
-                  label: 'Bitkilerim',
-                  icon: Icons.list_alt,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const PlantsPage()));
-                  },
-                ),
-                const SizedBox(height: 12),
-                PrimaryButton(
-                  label: 'Bitki Ekle',
-                  icon: Icons.add_circle,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const AddPlantPage()));
-                  },
-                ),
-                const SizedBox(height: 12),
-                PrimaryButton(
-                  label: 'Hastalık Tespiti (Beta)',
-                  icon: Icons.camera_alt,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const DiseaseDetectPage()));
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
-
-// ---- Placeholder sayfalar (sonraki adımlarda dolduracağız) ----

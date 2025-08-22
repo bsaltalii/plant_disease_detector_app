@@ -11,7 +11,7 @@ class PlantAnimation extends StatefulWidget {
 class _PlantAnimationState extends State<PlantAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _forward = true; // yön takibi
+  bool _forward = true;
 
   @override
   void initState() {
@@ -21,11 +21,11 @@ class _PlantAnimationState extends State<PlantAnimation>
 
     _controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 10));
         _forward = false;
         _controller.reverse();
       } else if (status == AnimationStatus.dismissed) {
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 10));
         _forward = true;
         _controller.forward();
       }
@@ -50,7 +50,7 @@ class _PlantAnimationState extends State<PlantAnimation>
           fit: BoxFit.fitWidth,
           onLoaded: (composition) {
             _controller.duration = composition.duration;
-            _controller.forward(); // ilk başta ileri oynasın
+            _controller.forward();
           },
         ),
       ),
