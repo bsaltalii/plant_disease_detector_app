@@ -4,7 +4,7 @@ import 'package:plant_disease_detector_app/features/auth/register_screen.dart';
 import 'package:plant_disease_detector_app/widgets/custom_button.dart';
 import '../../data/auth_repository.dart';
 import '../home/home_screen.dart';
-import '../../widgets/field.dart';
+import '../../widgets/login_register_input.dart';
 import '../../widgets/social_button.dart';
 import '../../core/responsive.dart';
 

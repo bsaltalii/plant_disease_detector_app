@@ -32,7 +32,7 @@ class Field extends StatelessWidget {
         fillColor: Colors.white.withOpacity(0.10),
         prefixIcon: prefix,
         suffixIcon: suffix,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal:16, vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: Colors.white.withOpacity(0.25)),

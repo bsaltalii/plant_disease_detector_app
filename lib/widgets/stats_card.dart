@@ -18,7 +18,7 @@ class StatCard extends StatelessWidget {
       margin: const EdgeInsets.all(6),
       constraints: const BoxConstraints(
         minHeight: 100,
-        maxHeight: 140,  
+        maxHeight: 140,
       ),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

@@ -3,7 +3,7 @@ import 'package:plant_disease_detector_app/widgets/custom_button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'login_screen.dart';
-import '../../widgets/field.dart';
+import '../../widgets/login_register_input.dart';
 import '../../core/responsive.dart';
 
 class RegisterScreen extends StatefulWidget {
