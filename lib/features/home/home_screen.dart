@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plant_disease_detector_app/features/detection/disease_detect_page.dart';
 import 'package:plant_disease_detector_app/features/plants/add_plant_page.dart';
 import 'package:plant_disease_detector_app/features/plants/plants_page.dart';
+import 'package:plant_disease_detector_app/features/profile/profile_page.dart';
 import 'package:plant_disease_detector_app/widgets/plant_animation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../auth/login_screen.dart';
 import '../../data/auth_repository.dart';
 import '../../widgets/stats_card.dart';
 import '../../widgets/action_card.dart';
@@ -62,14 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 icon: const Icon(Icons.person_2_rounded,
                     size: 28, color: Colors.white),
-                onPressed: () async {
-                  await repo.signOut();
-                  if (context.mounted) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    );
-                  }
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => ProfilePage()));
                 },
               )
             ],

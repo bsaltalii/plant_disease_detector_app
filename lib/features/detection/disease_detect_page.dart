@@ -46,7 +46,7 @@ class _DiseaseDetectPageState extends State<DiseaseDetectPage> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.65,
               width: double.infinity,
               child: Stack(
                 children: [
