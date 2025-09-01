@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_disease_detector_app/features/plants/add_plant_page.dart';
+import 'package:plant_disease_detector_app/features/plants/plants_page.dart';
 import 'package:plant_disease_detector_app/widgets/plant_animation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../auth/login_screen.dart';
@@ -163,7 +164,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ActionCard(
                             icon: Icons.list_alt,
                             title: "My plants",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => PlantsPage()));
+                            },
                           ),
                           ActionCard(
                             icon: Icons.add_circle,

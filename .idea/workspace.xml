@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d1f7675-15eb-4c25-841f-62407d9f44e4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/register_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/plants/add_plant_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/add_plant_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/action_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/action_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/custom_textfield.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/custom_input.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/login_register_input.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/stats_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/stats_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -35,8 +35,8 @@ class _AddPlantPageState extends State<AddPlantPage> {
       await supabase.from('plants').insert({
         'user_id': userId,
         'name': _nameController.text,
-        'type': _selectedType,
-        'watering_frequency': _wateringFrequency,
+        'species': _selectedType,
+        'watering_interval_days': _wateringFrequency,
         'created_at': DateTime.now().toIso8601String(),
       });
 
@@ -61,6 +61,14 @@ class _AddPlantPageState extends State<AddPlantPage> {
     return Scaffold(
       backgroundColor: const Color(0xFF0D1F12),
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white70,
+            )),
         backgroundColor: const Color(0xFF0D1F12),
         elevation: 0,
         title: const Text("Add Plant", style: TextStyle(color: Colors.white70)),
