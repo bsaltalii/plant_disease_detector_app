@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../plants/plant_detail_page.dart';
 
 class PlantsPage extends StatefulWidget {
   const PlantsPage({super.key});
@@ -63,6 +64,7 @@ class _PlantsPageState extends State<PlantsPage> {
             itemCount: plants.length,
             itemBuilder: (context, index) {
               final plant = plants[index];
+              print(plant['species'].toString());
               return Card(
                 color: Colors.grey[900],
                 shape: RoundedRectangleBorder(
@@ -83,7 +85,12 @@ class _PlantsPageState extends State<PlantsPage> {
                     style: const TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                   onTap: () {
-                    // TODO: PlantDetailPage'e yönlendirme
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlantDetailPage(plant: plant),
+                      ),
+                    );
                   },
                 ),
               );
