@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d1f7675-15eb-4c25-841f-62407d9f44e4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/calendar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/drop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/lastadded.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/to-do-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/zoom.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/grass.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/herb.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/herb.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/herb.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/plants/plant_detail_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/plant_detail_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/action_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/action_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/stats_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/stats_card.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

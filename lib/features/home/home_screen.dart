@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Expanded(
-                      flex: 10,
+                      flex: 8,
                       child: Row(
                         children: [
                           Expanded(
@@ -107,41 +107,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             flex: 4,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: StatCard(
-                                    title: "Total Plants",
-                                    value: "${data['total']}",
-                                    icon: Icons.local_florist,
-                                  ),
+                                StatCard(
+                                  title: "Total Plants",
+                                  value: "${data['total']}",
+                                  iconPath: 'assets/plant.png',
                                 ),
-                                Expanded(
-                                  child: StatCard(
-                                    title: "Tasks",
-                                    value: "${data['due']}",
-                                    icon: Icons.task,
-                                  ),
+                                StatCard(
+                                  title: "Tasks",
+                                  value: "${data['due']}",
+                                  iconPath: 'assets/task.png',
                                 ),
-                                Expanded(
-                                  child: StatCard(
-                                    title: "Latest Plant",
-                                    value: "${data['latest']}",
-                                    icon: Icons.bug_report,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: StatCard(
-                                    title: "Last Watered",
-                                    value: "${data['last_watered'] ?? '-'}",
-                                    icon: Icons.water_drop,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: StatCard(
-                                    title: "Upcoming",
-                                    value: "${data['upcoming'] ?? '-'}",
-                                    icon: Icons.schedule,
-                                  ),
+                                StatCard(
+                                  title: "Latest Plant",
+                                  value: "${data['latest']}",
+                                  iconPath: 'assets/lastadded.png',
                                 ),
                               ],
                             ),
@@ -162,21 +143,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           ActionCard(
-                            icon: Icons.list_alt,
+                            iconPath: 'assets/to-do-list.png',
                             title: "My plants",
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (_) => PlantsPage()));
                             },
                           ),
                           ActionCard(
-                            icon: Icons.add_circle,
+                            iconPath: 'assets/plus.png',
                             title: "Add plant",
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (_) => AddPlantPage()));
                             },
                           ),
                           ActionCard(
-                            icon: Icons.camera_alt,
+                            iconPath: 'assets/zoom.png',
                             title: "Disease Detection",
                             onTap: () {},
                           ),

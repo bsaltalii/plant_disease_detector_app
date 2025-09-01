@@ -70,7 +70,6 @@ class _PlantDetailPageState extends State<PlantDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Bilgi kutusu
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -80,14 +79,14 @@ class _PlantDetailPageState extends State<PlantDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInfoRow(Icons.local_florist, "Type",
+                  _buildInfoRow('assets/${plant['species'].toString().toLowerCase()}.png', "Type",
                       plant['species'] ?? '-'),
-                  const Divider(color: Colors.white24, height: 24),
-                  _buildInfoRow(Icons.water_drop, "Watering Interval",
+                  const Divider(color: Colors.white24, height: 32),
+                  _buildInfoRow('assets/drop.png', "Watering Interval",
                       "${plant['watering_interval_days'] ?? '?'} days"),
-                  const Divider(color: Colors.white24, height: 24),
+                  const Divider(color: Colors.white24, height: 32),
                   _buildInfoRow(
-                    Icons.calendar_today,
+                    'assets/calendar.png',
                     "Last Watered",
                     plant['last_watered'] ?? 'Not yet',
                   ),
@@ -104,10 +103,10 @@ class _PlantDetailPageState extends State<PlantDetailPage> {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String label, String value) {
+  Widget _buildInfoRow(String iconPath, String label, String value) {
     return Row(
       children: [
-        Icon(icon, color: Colors.greenAccent, size: 24),
+        Image.asset(iconPath,width: 32),
         const SizedBox(width: 12),
         Expanded(
           child: Column(

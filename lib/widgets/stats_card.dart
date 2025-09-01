@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class StatCard extends StatelessWidget {
   final String title;
   final String value;
-  final IconData icon;
+  final String iconPath; // Icon yerine asset yolu alıyoruz
 
   const StatCard({
     Key? key,
     required this.title,
     required this.value,
-    required this.icon,
+    required this.iconPath,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,11 @@ class StatCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.greenAccent, size: 28),
+            Image.asset(
+              iconPath,
+              width: 32,
+              height: 32,
+            ),
             const SizedBox(height: 8),
             Text(
               value,

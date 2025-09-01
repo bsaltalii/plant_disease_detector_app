@@ -64,7 +64,6 @@ class _PlantsPageState extends State<PlantsPage> {
             itemCount: plants.length,
             itemBuilder: (context, index) {
               final plant = plants[index];
-              print(plant['species'].toString());
               return Card(
                 color: Colors.grey[900],
                 shape: RoundedRectangleBorder(

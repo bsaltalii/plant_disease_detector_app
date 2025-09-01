@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ActionCard extends StatelessWidget {
-  final IconData icon;
+  final String iconPath;
   final String title;
   final VoidCallback onTap;
 
   const ActionCard({
     super.key,
-    required this.icon,
+    required this.iconPath,
     required this.title,
     required this.onTap,
   });
@@ -24,7 +24,11 @@ class ActionCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 32, color: Colors.greenAccent),
+            Image.asset(
+              iconPath,
+              width: 32,
+              height: 32,
+            ),
             const SizedBox(height: 12),
             Align(
               alignment: Alignment.center,
@@ -43,4 +47,3 @@ class ActionCard extends StatelessWidget {
     );
   }
 }
-
