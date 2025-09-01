@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d1f7675-15eb-4c25-841f-62407d9f44e4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/calendar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/drop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/lastadded.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/plant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/plus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/task.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/to-do-list.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/zoom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/detection/disease_result_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/gemini_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/herb.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/herb.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/detection/disease_detect_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/detection/disease_detect_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/plants/plant_detail_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/plant_detail_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/plants/plants_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/action_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/action_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/stats_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/stats_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,22 +65,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bsaltali/Documents/GitHub/plant_disease_detector_app&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/bsaltali/Documents/GitHub/plant_disease_detector_app",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets" />

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_disease_detector_app/features/detection/disease_detect_page.dart';
 import 'package:plant_disease_detector_app/features/plants/add_plant_page.dart';
 import 'package:plant_disease_detector_app/features/plants/plants_page.dart';
 import 'package:plant_disease_detector_app/widgets/plant_animation.dart';
@@ -159,7 +160,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ActionCard(
                             iconPath: 'assets/zoom.png',
                             title: "Disease Detection",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => DiseaseDetectPage()));
+                            },
                           ),
                         ],
                       ),

@@ -46,7 +46,7 @@ class _PlantsPageState extends State<PlantsPage> {
         future: _loadPlants(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.white70));
           }
 
           final plants = snapshot.data!;
