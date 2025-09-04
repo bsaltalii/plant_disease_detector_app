@@ -23,6 +23,18 @@ class _PlantsPageState extends State<PlantsPage> {
     return List<Map<String, dynamic>>.from(res);
   }
 
+  Future<void> _deletePlant(dynamic id) async {
+    try {
+      await supabase.from('plants').delete().eq('id', id);
+      setState(() {});
+    } catch (e) {
+      debugPrint("Error deleting plant: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to delete plant")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +95,32 @@ class _PlantsPageState extends State<PlantsPage> {
                     "Type: ${plant['species'] ?? '-'} • Every ${plant['watering_interval_days'] ?? '?'} days",
                     style: const TextStyle(color: Colors.white70, fontSize: 13),
                   ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.redAccent),
+                    onPressed: () async {
+                      final confirm = await showDialog<bool>(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text("Delete Plant"),
+                          content: const Text("Are you sure you want to delete this plant?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, false),
+                              child: const Text("Cancel",style: TextStyle(color: Colors.black)),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, true),
+                              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                        ),
+                      );
+
+                      if (confirm == true) {
+                        _deletePlant(plant['id']);
+                      }
+                    },
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -93,6 +131,7 @@ class _PlantsPageState extends State<PlantsPage> {
                   },
                 ),
               );
+
             },
           );
         },

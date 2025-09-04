@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'login_screen.dart';
 import '../../widgets/login_register_input.dart';
 import '../../core/responsive.dart';
+import 'show_message.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -21,39 +22,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscure = true;
 
   Future<void> _register() async {
+    final email = _emailCtrl.text.trim();
+    final pass = _passCtrl.text.trim();
+    final username = _userCtrl.text.trim();
+
+    if (email.isEmpty || pass.isEmpty || username.isEmpty) {
+      showMessage(context, "Missing Information", "All fields are required.");
+      return;
+    }
+
     setState(() => _loading = true);
 
     try {
       final res = await Supabase.instance.client.auth.signUp(
-        email: _emailCtrl.text,
-        password: _passCtrl.text,
+        email: email,
+        password: pass,
       );
 
       if (res.user != null) {
-        // profiles tablosuna ekle
         await Supabase.instance.client.from('profiles').insert({
           'id': res.user!.id,
-          'username': _userCtrl.text,
+          'username': username,
         });
 
         if (mounted) {
+          showMessage(context, "Success", "Registration successful! Please log in.");
+          Future.delayed(const Duration(seconds: 3));
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (_) => const LoginScreen()),
           );
         }
+      } else {
+        showMessage(context, "Registration Failed", "Registration unsuccessful. Please try again.");
       }
     } catch (e) {
-      print('Register error: $e');
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
+        showMessage(context, "Error", "Please check your e-mail and password!");
       }
     } finally {
       setState(() => _loading = false);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +73,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: Stack(
           children: [
             Positioned.fill(
-              child: Lottie.asset(
-                'assets/auroralights.json',
-                fit: BoxFit.fitHeight,
-                repeat: true,
+              child: Image.asset(
+                'assets/bg.png',
+                fit: BoxFit.cover, //
               ),
             ),
             Positioned.fill(

@@ -20,9 +20,7 @@ class _AddPlantPageState extends State<AddPlantPage> {
     if (_nameController.text.isEmpty ||
         _selectedType == null ||
         _wateringFrequency == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please fill all fields")),
-      );
+      showMessage(context, "Missing Information", "Please fill in all fields.");
       return;
     }
 
@@ -41,19 +39,46 @@ class _AddPlantPageState extends State<AddPlantPage> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Plant added successfully!")),
-        );
-        Navigator.pop(context);
+        showMessage(context, "Success", "Plant has been added successfully!");
       }
     } catch (e) {
       debugPrint("Error inserting plant: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to add plant")),
-      );
+      showMessage(context, "Error", "Something went wrong $e");
     } finally {
       setState(() => _loading = false);
     }
+  }
+
+  void showMessage(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.black),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              "OK",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

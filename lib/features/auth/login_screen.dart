@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:plant_disease_detector_app/features/auth/register_screen.dart';
 import 'package:plant_disease_detector_app/widgets/custom_button.dart';
 import '../../data/auth_repository.dart';
@@ -7,6 +7,8 @@ import '../home/home_screen.dart';
 import '../../widgets/login_register_input.dart';
 import '../../widgets/social_button.dart';
 import '../../core/responsive.dart';
+import 'show_message.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,10 +24,32 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _loading = false;
   bool _obscure = true;
 
+  late final StreamSubscription<AuthState> _authSub;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ✅ Google/Apple login sonrası otomatik yakalama
+    _authSub = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+      final event = data.event;
+      final session = data.session;
+
+      if (event == AuthChangeEvent.signedIn &&
+          session != null &&
+          mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
+    });
+  }
+
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _authSub.cancel();
     super.dispose();
   }
 
@@ -35,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final pass = _password.text.trim();
 
     if (email.isEmpty || pass.isEmpty) {
-      _toast('Email ve şifre gerekli');
+      showMessage(
+          context, "Missing Information", "Email and password are required.");
       return;
     }
 
@@ -47,19 +72,15 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(builder: (_) => const HomeScreen()),
         );
       } else {
-        _toast('Giriş başarısız. Bilgileri kontrol et.');
+        showMessage(context, "Login Failed",
+            "Login unsuccessful. Please check your credentials.");
       }
     } catch (e) {
-      _toast(e.toString());
+      showMessage(context, "Login Failed",
+          "Login unsuccessful. Please check your credentials.");
     } finally {
       if (mounted) setState(() => _loading = false);
     }
-  }
-
-  void _toast(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg)),
-    );
   }
 
   @override
@@ -71,30 +92,26 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           children: [
             Positioned.fill(
-              child: Lottie.asset(
-                'assets/auroralights.json',
-                fit: BoxFit.fitHeight,
-                repeat: true,
+              child: Image.asset(
+                'assets/bg.png',
+                fit: BoxFit.cover,
               ),
             ),
-
             Positioned.fill(
               child: Container(color: Colors.black.withOpacity(0.5)),
             ),
 
-            // Form
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
                   padding: R.padding(context),
                   child: ConstrainedBox(
                     constraints:
-                        BoxConstraints(maxWidth: R.maxFormWidth(context)),
+                    BoxConstraints(maxWidth: R.maxFormWidth(context)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 8),
-
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -109,7 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 28),
 
-                        // Email
                         Field(
                           controller: _email,
                           label: 'Email',
@@ -119,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 14),
 
-                        // Password
                         Field(
                           controller: _password,
                           label: 'Password',
@@ -139,11 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 22),
 
-                        // Login button
                         CustomButton(
-                            label: "Login",
-                            onPressed: _login,
-                            loading: _loading),
+                          label: "Login",
+                          onPressed: _login,
+                          loading: _loading,
+                        ),
 
                         const SizedBox(height: 14),
 
@@ -165,12 +180,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Social(icon: Icons.g_mobiledata),
-                            SizedBox(width: 12),
-                            Social(icon: Icons.apple),
-                            SizedBox(width: 12),
-                            Social(icon: Icons.play_circle_fill),
+                          children: [
+                            // Google
+                            GestureDetector(
+                              onTap: () async {
+                                final started =
+                                await _repo.signInWithGoogle();
+                                if (!started) {
+                                  showMessage(context, "Error",
+                                      "Could not start Google sign-in.");
+                                }
+                              },
+                              child: const Social(icon: Icons.g_mobiledata),
+                            ),
+                            const SizedBox(width: 12),
+
+                            // Apple
+                            GestureDetector(
+                              onTap: () async {
+                                final started =
+                                await _repo.signInWithApple();
+                                if (!started) {
+                                  showMessage(context, "Error",
+                                      "Could not start Apple sign-in.");
+                                }
+                              },
+                              child: const Social(icon: Icons.apple),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 8),
