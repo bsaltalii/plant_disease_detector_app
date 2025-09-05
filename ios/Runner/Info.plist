@@ -45,12 +45,21 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
 	<key>CFBundleURLTypes</key>
     <array>
+      <!-- Supabase scheme -->
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
           <string>io.supabase.plantcare</string>
+        </array>
+      </dict>
+      <!-- Google Sign-In scheme -->
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.1013048305515-pp0fd8s5vdje420dl3fgi07lnme8b8jp</string>
         </array>
       </dict>
     </array>

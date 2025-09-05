@@ -5,7 +5,7 @@ import 'package:plant_disease_detector_app/widgets/custom_button.dart';
 import '../../data/auth_repository.dart';
 import '../home/home_screen.dart';
 import '../../widgets/login_register_input.dart';
-import '../../widgets/social_button.dart';
+import '../../widgets/social_login_button.dart';
 import '../../core/responsive.dart';
 import 'show_message.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    // ✅ Google/Apple login sonrası otomatik yakalama
     _authSub = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final event = data.event;
       final session = data.session;
@@ -181,34 +180,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Google
-                            GestureDetector(
-                              onTap: () async {
-                                final started =
-                                await _repo.signInWithGoogle();
-                                if (!started) {
-                                  showMessage(context, "Error",
-                                      "Could not start Google sign-in.");
+                            SocialLogoButton(
+                              assetPath: "assets/google.png",
+                              onPressed: () async {
+                                try {
+                                  final res = await _repo.signInWithGoogle();
+                                  if (res.user != null && mounted) {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                                    );
+                                  }
+                                } catch (e) {
+                                  showMessage(context, "Error", "Google sign-in failed: $e");
                                 }
                               },
-                              child: const Social(icon: Icons.g_mobiledata),
-                            ),
-                            const SizedBox(width: 12),
-
-                            // Apple
-                            GestureDetector(
-                              onTap: () async {
-                                final started =
-                                await _repo.signInWithApple();
-                                if (!started) {
-                                  showMessage(context, "Error",
-                                      "Could not start Apple sign-in.");
-                                }
-                              },
-                              child: const Social(icon: Icons.apple),
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 8),
                       ],
                     ),

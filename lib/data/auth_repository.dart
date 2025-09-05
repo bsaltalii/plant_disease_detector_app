@@ -1,3 +1,4 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'supabase_client.dart';
 
@@ -18,12 +19,30 @@ class AuthRepository {
     );
   }
 
-  Future<bool> signInWithGoogle() async {
-    return await _client.auth.signInWithOAuth(OAuthProvider.google);
+  Future<AuthResponse> signInWithGoogle() async {
+    final googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
+
+    final account = await googleSignIn.signIn();
+    if (account == null) {
+      throw Exception("Google sign-in aborted");
+    }
+
+    final auth = await account.authentication;
+
+    final res = await _client.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: auth.idToken!,
+      accessToken: auth.accessToken,
+    );
+
+    return res;
   }
 
   Future<bool> signInWithApple() async {
-    return await _client.auth.signInWithOAuth(OAuthProvider.apple);
+    return await _client.auth.signInWithOAuth(
+      OAuthProvider.apple,
+      redirectTo: 'io.supabase.plantcare://login-callback/',
+    );
   }
 
   Future<void> signOut() async {
